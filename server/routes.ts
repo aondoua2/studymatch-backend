@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertStudentSchema, insertConnectionSchema } from "@shared/schema";
+import { insertStudentSchema, insertConnectionSchema } from "../shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/students", async (_req, res) => {
@@ -59,11 +59,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const matches = allStudents
         .filter(s => s.id !== currentStudent.id)
         .map(student => {
-          const sharedClasses = student.classes.filter(c => 
+          const sharedClasses = student.classes.filter((c: string) => 
             currentStudent.classes.includes(c)
           );
           
-          const sharedSlots = student.availableSlots.filter(slot => 
+          const sharedSlots = student.availableSlots.filter((slot: string) => 
             currentStudent.availableSlots.includes(slot)
           );
 
